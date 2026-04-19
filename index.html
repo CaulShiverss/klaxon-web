@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Klaxon — Aprueba el práctico a la primera</title>
-<meta name="description" content="El diario de clases con IA que ojalá hubiera existido cuando empezaste las prácticas.">
+<meta name="description" content="La app con IA que te ayuda a aprobar el examen práctico de conducir. Registra tus clases, analiza tus errores y recibe consejos personalizados.">
+<meta property="og:title" content="Klaxon — Aprueba el práctico a la primera">
+<meta property="og:description" content="La app con IA que te ayuda a aprobar el examen práctico de conducir.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,8 +19,9 @@
     --paper: #F7F6F2;
     --purple: #3D2FCC;
     --orange: #FF5C00;
-    --muted: #888;
-    --border: rgba(0,0,0,0.1);
+    --muted: #6B6B7B;
+    --border: rgba(0,0,0,0.08);
+    --card-bg: #FFFFFF;
   }
 
   html { scroll-behavior: smooth; }
@@ -24,61 +29,46 @@
   body {
     background: var(--paper);
     color: var(--ink);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 400;
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* NAV */
+  /* ─── NAV ─── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 16px 40px;
+    padding: 14px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(247,246,242,0.92);
-    backdrop-filter: blur(12px);
+    background: rgba(247,246,242,0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-logo {
-    font-family: 'Inter', -apple-system, sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--ink);
-    text-decoration: none;
-    letter-spacing: -0.5px;
-  }
-
-  .nav-logo span {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    background: var(--orange);
-    border-radius: 50%;
-    margin-left: 1px;
-    vertical-align: super;
-    font-size: 0;
-  }
+  .nav-logo { display: flex; align-items: center; text-decoration: none; }
+  .nav-logo img { height: 24px; width: auto; }
 
   .nav-cta {
-    background: var(--purple);
+    background: var(--ink);
     color: #fff;
     text-decoration: none;
-    padding: 10px 22px;
+    padding: 10px 20px;
     border-radius: 100px;
     font-size: 14px;
     font-weight: 500;
-    transition: opacity 0.2s;
+    transition: all 0.2s;
+    letter-spacing: -0.2px;
   }
 
-  .nav-cta:hover { opacity: 0.85; }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
-  /* HERO */
+  /* ─── HERO ─── */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -86,8 +76,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 120px 24px 80px;
+    padding: 120px 24px 60px;
     position: relative;
+    overflow: hidden;
   }
 
   .hero::before {
@@ -95,23 +86,23 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60% 40% at 30% 20%, rgba(61,47,204,0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 30% at 70% 80%, rgba(255,92,0,0.05) 0%, transparent 70%);
+      radial-gradient(ellipse 50% 50% at 20% 30%, rgba(61,47,204,0.05) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 70%, rgba(255,92,0,0.04) 0%, transparent 70%);
     pointer-events: none;
   }
 
   .hero-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-size: 13px;
     font-weight: 500;
     color: var(--purple);
-    border: 1px solid rgba(61,47,204,0.2);
-    padding: 6px 14px;
+    background: rgba(61,47,204,0.06);
+    padding: 7px 16px;
     border-radius: 100px;
-    margin-bottom: 32px;
-    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+    letter-spacing: 0.01em;
     opacity: 0;
     animation: fadeUp 0.6s ease forwards 0.1s;
   }
@@ -121,16 +112,16 @@
     width: 6px; height: 6px;
     background: var(--orange);
     border-radius: 50%;
+    flex-shrink: 0;
   }
 
   .hero-title {
-    font-family: 'Inter', -apple-system, sans-serif;
-    font-size: clamp(42px, 7vw, 76px);
+    font-size: clamp(40px, 7vw, 72px);
     font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: -3px;
-    max-width: 760px;
-    margin-bottom: 24px;
+    line-height: 1.04;
+    letter-spacing: -2.5px;
+    max-width: 700px;
+    margin-bottom: 20px;
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.2s;
   }
@@ -141,11 +132,12 @@
   }
 
   .hero-sub {
-    font-size: clamp(16px, 2vw, 19px);
+    font-size: clamp(16px, 2vw, 18px);
     color: var(--muted);
-    max-width: 480px;
-    margin-bottom: 48px;
-    font-weight: 300;
+    max-width: 440px;
+    margin-bottom: 36px;
+    font-weight: 400;
+    line-height: 1.5;
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.3s;
   }
@@ -154,11 +146,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
     opacity: 0;
     animation: fadeUp 0.7s ease forwards 0.4s;
     width: 100%;
-    max-width: 280px;
+    max-width: 260px;
+    margin-bottom: 64px;
   }
 
   .btn-primary {
@@ -168,143 +161,237 @@
     background: var(--ink);
     color: #fff;
     text-decoration: none;
-    padding: 15px 24px;
+    padding: 14px 24px;
     border-radius: 14px;
     font-size: 15px;
     font-weight: 500;
-    transition: transform 0.2s, opacity 0.2s;
+    transition: all 0.2s;
     width: 100%;
     justify-content: center;
-    white-space: nowrap;
+    letter-spacing: -0.2px;
   }
 
-  .btn-primary:hover { transform: translateY(-2px); opacity: 0.88; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+  .btn-primary svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-  .btn-primary svg { width: 20px; height: 20px; flex-shrink: 0; }
-
-  .btn-secondary {
+  .btn-ios {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: rgba(0,0,0,0.05);
+    background: transparent;
     color: var(--muted);
     text-decoration: none;
-    padding: 15px 24px;
+    padding: 14px 24px;
     border-radius: 14px;
     font-size: 15px;
     font-weight: 500;
     width: 100%;
     justify-content: center;
+    border: 1px solid var(--border);
     cursor: default;
-    white-space: nowrap;
+    letter-spacing: -0.2px;
   }
 
-  .btn-secondary svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .btn-ios svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-  .status-badge {
-    display: inline-flex;
+  .ios-note {
+    font-size: 12px;
+    color: #aaa;
+    display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 11px;
-    color: #999;
-    margin-top: 4px;
   }
 
-  .status-dot {
+  .ios-note::before {
+    content: '';
     width: 6px; height: 6px;
+    background: #EAB308;
     border-radius: 50%;
   }
 
-  .status-dot.green { background: #22C55E; }
-  .status-dot.yellow { background: #EAB308; }
+  /* ─── HERO MOCKUP ─── */
+  .hero-mockup {
+    width: 100%;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+    position: relative;
+  }
 
-  /* FEATURES */
-  .features {
-    padding: 100px 24px;
-    max-width: 1000px;
+  .hero-mockup-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .hero-mockup-row img {
+    width: 240px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .hero-mockup-row img:nth-child(2) {
+    transform: translateY(32px);
+  }
+
+  .hero-mockup-row img:nth-child(3) {
+    transform: translateY(12px);
+  }
+
+  /* ─── SOCIAL PROOF BAR ─── */
+  .social-proof {
+    padding: 48px 24px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .proof-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    max-width: 700px;
     margin: 0 auto;
   }
 
-  .section-label {
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 48px;
-    text-align: center;
+  .proof-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
   }
 
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-    background: var(--border);
-    border-radius: 20px;
-    overflow: hidden;
-  }
-
-  .feature-card {
-    background: var(--paper);
-    padding: 40px 36px;
-    transition: background 0.2s;
-  }
-
-  .feature-card:hover { background: #F0EFE9; }
-
-  .feature-icon {
+  .proof-number {
     font-size: 28px;
-    margin-bottom: 16px;
-    display: block;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--ink);
   }
 
-  .feature-title {
-    font-family: 'Inter', -apple-system, sans-serif;
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    letter-spacing: -0.3px;
-  }
+  .proof-number.purple { color: var(--purple); }
+  .proof-number.orange { color: var(--orange); }
 
-  .feature-desc {
-    font-size: 15px;
+  .proof-label {
+    font-size: 13px;
     color: var(--muted);
-    line-height: 1.6;
     font-weight: 400;
   }
 
-  .feature-badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 500;
-    color: #22C55E;
-    background: rgba(34,197,94,0.1);
-    padding: 3px 10px;
-    border-radius: 100px;
-    margin-top: 12px;
+  /* ─── FEATURE SECTIONS ─── */
+  .feature-section {
+    padding: 100px 24px;
+    max-width: 1060px;
+    margin: 0 auto;
   }
 
-  /* PRICE */
+  .feature-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 100px;
+  }
+
+  .feature-block:last-child { margin-bottom: 0; }
+
+  .feature-block.reversed .feature-text { order: 2; }
+  .feature-block.reversed .feature-visual { order: 1; }
+
+  .feature-text { max-width: 420px; }
+
+  .feature-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .feature-tag .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22C55E;
+  }
+
+  .feature-tag .dot.premium {
+    background: var(--purple);
+  }
+
+  .feature-heading {
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    letter-spacing: -1.2px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .feature-body {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .feature-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 100px;
+    background: rgba(61,47,204,0.06);
+    color: var(--purple);
+  }
+
+  .chip.green {
+    background: rgba(34,197,94,0.08);
+    color: #16a34a;
+  }
+
+  .feature-visual {
+    display: flex;
+    justify-content: center;
+  }
+
+  .feature-visual img {
+    width: 280px;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.10), 0 4px 20px rgba(0,0,0,0.04);
+  }
+
+  /* ─── PRICE ─── */
   .price-section {
     padding: 80px 24px;
     text-align: center;
+    background: var(--card-bg);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
   }
 
-  .price-label {
+  .price-tag {
     font-size: 13px;
     color: var(--muted);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    font-weight: 400;
   }
 
   .price-amount {
-    font-family: 'Inter', -apple-system, sans-serif;
     font-weight: 700;
-    font-size: clamp(48px, 8vw, 80px);
+    font-size: clamp(52px, 9vw, 80px);
     letter-spacing: -3px;
     line-height: 1;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   .price-amount span {
@@ -315,109 +402,194 @@
   }
 
   .price-sub {
-    font-size: 15px;
+    font-size: 16px;
     color: var(--muted);
-    font-weight: 300;
-    max-width: 360px;
-    margin: 0 auto 8px;
+    font-weight: 400;
+    max-width: 380px;
+    margin: 0 auto 6px;
   }
 
   .price-note {
     font-size: 13px;
     color: #bbb;
-  }
-
-  /* AVAILABILITY */
-  .availability {
-    padding: 80px 24px;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .avail-title {
-    font-family: 'Inter', -apple-system, sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    margin-bottom: 32px;
-  }
-
-  .avail-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     max-width: 360px;
-    margin: 0 auto 40px;
+    margin: 0 auto;
   }
 
-  .avail-row {
-    display: flex;
+  .price-compare {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: #fff;
-  }
-
-  .avail-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    font-weight: 500;
-  }
-
-  .avail-status {
-    font-size: 12px;
-    font-weight: 500;
-    padding: 4px 10px;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--muted);
+    background: rgba(34,197,94,0.06);
+    padding: 8px 16px;
     border-radius: 100px;
   }
 
-  .avail-status.live {
-    background: rgba(34,197,94,0.1);
+  .price-compare strong {
     color: #16a34a;
+    font-weight: 600;
   }
 
-  .avail-status.soon {
-    background: rgba(234,179,8,0.1);
-    color: #a16207;
+  /* ─── iOS WAITLIST ─── */
+  .waitlist {
+    padding: 80px 24px;
+    text-align: center;
+    max-width: 520px;
+    margin: 0 auto;
   }
 
-  /* CTA FINAL */
+  .waitlist-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+
+  .waitlist-title {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    margin-bottom: 10px;
+  }
+
+  .waitlist-desc {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .waitlist-form {
+    display: flex;
+    gap: 8px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .waitlist-form input {
+    flex: 1;
+    padding: 13px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    background: var(--card-bg);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .waitlist-form input:focus {
+    border-color: var(--purple);
+  }
+
+  .waitlist-form input::placeholder {
+    color: #bbb;
+  }
+
+  .waitlist-form button {
+    padding: 13px 22px;
+    background: var(--purple);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .waitlist-form button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(61,47,204,0.3);
+  }
+
+  .waitlist-privacy {
+    font-size: 12px;
+    color: #bbb;
+    margin-top: 12px;
+  }
+
+  .waitlist-success {
+    display: none;
+    padding: 14px 20px;
+    background: rgba(34,197,94,0.08);
+    color: #16a34a;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  /* ─── CTA FINAL ─── */
   .cta-final {
     padding: 100px 24px;
     text-align: center;
     background: var(--ink);
     color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-final::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 50% at 30% 40%, rgba(61,47,204,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 70% 60%, rgba(255,92,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    max-width: 560px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
   }
 
   .cta-final .hero-title {
     color: #fff;
+    opacity: 1;
+    animation: none;
   }
 
-  .cta-final .hero-title em {
-    color: var(--orange);
-  }
+  .cta-final .hero-title em { color: var(--orange); }
 
   .cta-final .hero-sub {
-    color: rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.45);
+    opacity: 1;
+    animation: none;
   }
 
-  .btn-primary.light {
+  .btn-white {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     background: #fff;
     color: var(--ink);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+    letter-spacing: -0.2px;
   }
 
-  .btn-primary.light:hover { opacity: 0.9; }
+  .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
 
-  /* FOOTER */
+  /* ─── FOOTER ─── */
   footer {
     background: var(--ink);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    padding: 24px 40px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 20px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -425,32 +597,73 @@
     gap: 12px;
   }
 
+  .footer-logo { display: flex; align-items: center; }
+  .footer-logo img { height: 20px; width: auto; opacity: 0.5; }
+
   footer a {
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.35);
     text-decoration: none;
     font-size: 13px;
     transition: color 0.2s;
   }
 
-  footer a:hover { color: rgba(255,255,255,0.8); }
+  footer a:hover { color: rgba(255,255,255,0.7); }
 
   footer span {
     font-size: 13px;
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.2);
   }
 
-  /* ANIMATIONS */
+  /* ─── ANIMATIONS ─── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 640px) {
-    nav { padding: 16px 20px; }
-    .features-grid { grid-template-columns: 1fr; }
-    .feature-card { padding: 28px 24px; }
-    footer { flex-direction: column; text-align: center; }
+  /* ─── SCROLL REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+
+    .hero-mockup-row { gap: 12px; }
+    .hero-mockup-row img { width: 160px; border-radius: 16px; }
+    .hero-mockup-row img:nth-child(3) { display: none; }
+
+    .feature-block {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .feature-text { max-width: 100%; margin: 0 auto; }
+    .feature-block.reversed .feature-text { order: 1; }
+    .feature-block.reversed .feature-visual { order: 2; }
+
+    .feature-chips { justify-content: center; }
+
+    .feature-visual img { width: 220px; }
+
+    .proof-stats { gap: 32px; }
+
+    .waitlist-form { flex-direction: column; }
+
+    footer { flex-direction: column; text-align: center; padding: 20px; }
+  }
+
+  @media (max-width: 440px) {
+    .hero-mockup-row img { width: 140px; border-radius: 14px; }
+    .feature-visual img { width: 200px; }
   }
 </style>
 </head>
@@ -458,116 +671,208 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#"><img src="klaxon-logo-light.png" alt="Klaxon" style="height:28px;width:auto;"></a>
-  <a href="https://play.google.com/store" class="nav-cta">Descargar gratis</a>
+  <a href="#" class="nav-logo">
+    <img src="Klaxon_Logo_NoBackground.png" alt="Klaxon">
+  </a>
+  <a href="https://play.google.com/store/apps/details?id=com.tuusuario.klaxon" class="nav-cta">Descargar gratis</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">La app para el carnet de conducir</div>
   <h1 class="hero-title">Aprueba el <em>práctico</em><br>a la primera</h1>
-  <p class="hero-sub">El diario de clases con IA que ojalá hubiera existido cuando empezaste las prácticas.</p>
+  <p class="hero-sub">Registra cada clase, descubre en qué fallas y recibe consejos de IA personalizados para tu examen.</p>
+
   <div class="hero-buttons">
-    <a href="https://play.google.com/store" class="btn-primary">
+    <a href="https://play.google.com/store/apps/details?id=com.klaxon.drive" class="btn-primary">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.35.2.74.24 1.11.12L15.94 12 4.29.12C3.92 0 3.53.04 3.18.24 2.48.64 2 1.42 2 2.29v19.42c0 .87.48 1.65 1.18 2.05z"/><path d="M19.5 10.27l-2.96-1.7L13.41 12l3.13 3.43 2.96-1.7c.85-.49.85-1.97 0-2.46z"/><path d="M4.29.12l10.71 6.15L12 9.41 4.29.12z"/><path d="M12 14.59l3 3.29-10.71 6.15L12 14.59z"/></svg>
-      <span style="white-space:nowrap;">Disponible en Google Play</span>
+      Disponible en Google Play
     </a>
-    <div style="height:6px;"></div>
-    <div class="btn-secondary">
+    <div class="btn-ios">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      <span style="white-space:nowrap;">Próximamente en App Store</span>
+      Próximamente en iOS
     </div>
-    <div class="status-badge">
-      <span class="status-dot yellow"></span>
-      En revisión · Disponible pronto en iOS
+    <span class="ios-note">En revisión en la App Store</span>
+  </div>
+
+  <!-- HERO SCREENSHOTS -->
+  <div class="hero-mockup">
+    <div class="hero-mockup-row">
+      <img src="Frame_2.jpg" alt="Diario de clases de conducir en Klaxon" loading="eager">
+      <img src="Frame_4.jpg" alt="Estadísticas y progreso en Klaxon" loading="eager">
+      <img src="Group_1.jpg" alt="Asistente IA de conducción en Klaxon" loading="eager">
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <div class="proof-stats">
+    <div class="proof-item">
+      <span class="proof-number orange">~1.500€</span>
+      <span class="proof-label">Coste medio del carnet en España</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-number purple">52%</span>
+      <span class="proof-label">Suspende el práctico a la primera</span>
+    </div>
+    <div class="proof-item">
+      <span class="proof-number">10</span>
+      <span class="proof-label">Módulos de guía de prácticas gratis</span>
     </div>
   </div>
 </section>
 
 <!-- FEATURES -->
-<section class="features">
-  <p class="section-label">Todo lo que necesitas</p>
-  <div class="features-grid">
-    <div class="feature-card">
-      <span class="feature-icon">📝</span>
-      <h3 class="feature-title">Registra cada clase</h3>
-      <p class="feature-desc">Anota lo que fue bien, lo que tienes que mejorar y cosas a recordar para la siguiente. Todo queda en tu historial.</p>
-      <span class="feature-badge">Gratis</span>
+<section class="feature-section">
+
+  <!-- Feature 1: Diario -->
+  <div class="feature-block reveal">
+    <div class="feature-text">
+      <div class="feature-tag"><span class="dot"></span> Gratis</div>
+      <h2 class="feature-heading">Tu diario de prácticas.<br>Cada clase cuenta.</h2>
+      <p class="feature-body">Después de cada clase, registra lo que ha ido bien, lo que tienes que mejorar y lo que quieres recordar para la siguiente. Todo queda en tu historial.</p>
+      <div class="feature-chips">
+        <span class="chip green">Rotondas</span>
+        <span class="chip green">Aparcamiento</span>
+        <span class="chip green">Autovía</span>
+        <span class="chip green">Maniobras</span>
+        <span class="chip green">+6 más</span>
+      </div>
     </div>
-    <div class="feature-card">
-      <span class="feature-icon">📊</span>
-      <h3 class="feature-title">Estadísticas reales</h3>
-      <p class="feature-desc">Ve tu evolución clase a clase. Descubre en qué categorías fallas más y cuántos días te quedan para el examen.</p>
-      <span class="feature-badge">Gratis</span>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">✦</span>
-      <h3 class="feature-title">Asistente IA</h3>
-      <p class="feature-desc">Analiza tu historial completo y te dice exactamente qué trabajar. No son consejos genéricos, son los tuyos según tus errores reales.</p>
-      <span style="display:inline-block;font-size:11px;font-weight:500;color:var(--purple);background:rgba(61,47,204,0.08);padding:3px 10px;border-radius:100px;margin-top:12px;">Premium · 3,99 €</span>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">📖</span>
-      <h3 class="feature-title">Guía de prácticas</h3>
-      <p class="feature-desc">10 módulos con los errores que suspenden, checklists de práctica y vídeos recomendados.</p>
-      <span class="feature-badge">Gratis</span>
+    <div class="feature-visual">
+      <img src="Frame_2.jpg" alt="Lista de clases de conducir registradas" loading="lazy">
     </div>
   </div>
+
+  <!-- Feature 2: Stats -->
+  <div class="feature-block reversed reveal">
+    <div class="feature-text">
+      <div class="feature-tag"><span class="dot"></span> Gratis</div>
+      <h2 class="feature-heading">Fíjate en las cosas que fallan</h2>
+      <p class="feature-body">Ve tu evolución clase a clase con estadísticas reales. Descubre en qué categorías fallas más, controla el gasto y cuenta atrás para tu examen.</p>
+      <div class="feature-chips">
+        <span class="chip">Análisis por categoría</span>
+        <span class="chip">Control de gasto</span>
+        <span class="chip">Calendario</span>
+      </div>
+    </div>
+    <div class="feature-visual">
+      <img src="Frame_4.jpg" alt="Estadísticas de evolución y gasto del carnet" loading="lazy">
+    </div>
+  </div>
+
+  <!-- Feature 3: IA -->
+  <div class="feature-block reveal">
+    <div class="feature-text">
+      <div class="feature-tag"><span class="dot premium"></span> Premium · 3,99 €</div>
+      <h2 class="feature-heading">Tu copiloto IA.<br>Consejos que son tuyos.</h2>
+      <p class="feature-body">Analiza tu historial completo y te dice exactamente qué trabajar antes del examen. No son consejos genéricos: son los tuyos, basados en tus errores reales.</p>
+      <div class="feature-chips">
+        <span class="chip">Consejo semanal</span>
+        <span class="chip">Chat personalizado</span>
+        <span class="chip">Módulo recomendado</span>
+      </div>
+    </div>
+    <div class="feature-visual">
+      <img src="Group_1.jpg" alt="Chat con el asistente IA de Klaxon" loading="lazy">
+    </div>
+  </div>
+
+  <!-- Feature 4: Calendar -->
+  <div class="feature-block reversed reveal">
+    <div class="feature-text">
+      <div class="feature-tag"><span class="dot"></span> Gratis</div>
+      <h2 class="feature-heading">Organiza tus prácticas</h2>
+      <p class="feature-body">Calendario visual con todas tus clases pasadas y programadas. Pon la fecha de tu examen y ten siempre la cuenta atrás a la vista.</p>
+      <div class="feature-chips">
+        <span class="chip">Clases realizadas</span>
+        <span class="chip">Clases futuras</span>
+        <span class="chip">Cuenta atrás</span>
+      </div>
+    </div>
+    <div class="feature-visual">
+      <img src="Frame_6.jpg" alt="Calendario de clases de conducir" loading="lazy">
+    </div>
+  </div>
+
 </section>
 
 <!-- PRICE -->
-<section class="price-section">
-  <p class="price-label">Sin sorpresas</p>
+<section class="price-section reveal">
+  <p class="price-tag">Sin sorpresas</p>
   <div class="price-amount"><span>€</span>3,99</div>
-  <p class="price-sub">Pago único para el asistente IA. Sin suscripciones ni renovaciones.</p>
-  <p class="price-note">La descarga, el diario de clases y la guía completa son gratis para siempre.</p>
+  <p class="price-sub">Pago único para el asistente IA. Sin suscripciones, sin renovaciones.</p>
+  <p class="price-note">La descarga, el diario de clases, las estadísticas y la guía completa son gratis para siempre.</p>
+  <div class="price-compare">
+    <strong>Menos que un café</strong> para no repetir una clase de 33€
+  </div>
 </section>
 
-<!-- AVAILABILITY -->
-<section class="availability">
-  <h2 class="avail-title">Disponibilidad</h2>
-  <div class="avail-list">
-    <div class="avail-row">
-      <div class="avail-left">
-        <span>🤖</span>
-        <span>Android</span>
-      </div>
-      <span class="avail-status live">Disponible</span>
-    </div>
-    <div class="avail-row">
-      <div class="avail-left">
-        <span>🍎</span>
-        <span>iOS</span>
-      </div>
-      <span class="avail-status soon">En revisión</span>
-    </div>
+<!-- iOS WAITLIST -->
+<section class="waitlist reveal" id="waitlist">
+  <div class="waitlist-icon">🍎</div>
+  <h2 class="waitlist-title">¿Usas iPhone?</h2>
+  <p class="waitlist-desc">La versión para iOS está en revisión en la App Store. Déjanos tu email y te avisamos en cuanto esté disponible.</p>
+  <form class="waitlist-form" id="waitlistForm" onsubmit="handleWaitlist(event)">
+    <input type="email" placeholder="tu@email.com" required autocomplete="email">
+    <button type="submit">Avisarme</button>
+  </form>
+  <p class="waitlist-privacy">Solo para avisarte. Sin spam, lo prometemos.</p>
+  <div class="waitlist-success" id="waitlistSuccess">
+    ✓ ¡Apuntado! Te escribimos cuando esté lista.
   </div>
-  <p style="font-size:14px;color:var(--muted);font-weight:300;">iOS estará disponible próximamente. Mientras tanto puedes descargarlo en Android.</p>
 </section>
 
 <!-- CTA FINAL -->
 <section class="cta-final">
-  <div style="max-width:600px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;">
-    <div class="hero-eyebrow" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.1);opacity:1;">¿Cuántos días te quedan para el examen?</div>
-    <h2 class="hero-title" style="opacity:1;animation:none;font-family:'Inter',-apple-system,sans-serif;color:#fff;">Empieza <em style="color:var(--orange);">hoy</em></h2>
-    <p class="hero-sub" style="opacity:1;animation:none;color:rgba(255,255,255,0.5);">Descarga Klaxon gratis y llega al examen sabiendo exactamente en qué fallas.</p>
-    <div style="opacity:1;animation:none;width:100%;max-width:280px;">
-      <a href="https://play.google.com/store" class="btn-primary" style="background:#fff;color:var(--ink);white-space:nowrap;">
-        Descargar gratis en Android
-      </a>
-    </div>
+  <div class="cta-inner">
+    <div class="hero-eyebrow" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:none;opacity:1;animation:none;">¿Cuántos días te quedan para el examen?</div>
+    <h2 class="hero-title" style="font-size:clamp(36px,6vw,56px);">Empieza <em>hoy</em></h2>
+    <p class="hero-sub" style="margin-bottom:32px;">Descarga Klaxon gratis y llega al examen sabiendo exactamente en qué fallas.</p>
+    <a href="https://play.google.com/store/apps/details?id=com.tuusuario.klaxon" class="btn-white">
+      Descargar gratis en Android
+    </a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <a href="#"><img src="klaxon-logo-dark.png" alt="Klaxon" style="height:26px;width:auto;opacity:0.6;filter:brightness(10);"></a>
+  <a href="#" class="footer-logo">
+    <img src="Klaxon_Logo_NoBackground_for_DarkMode.png" alt="Klaxon">
+  </a>
   <div style="display:flex;gap:24px;align-items:center;">
-    <a href="https://tuusuario.github.io/klaxon-privacy">Política de privacidad</a>
-    <a href="mailto:tucorreo@email.com">Contacto</a>
+    <a href="https://tuusuario.github.io/klaxon-privacy">Privacidad</a>
+    <a href="mailtosllorentegonz@gmail.com">Contacto</a>
   </div>
   <span>© 2026 Sergio Llorente</span>
 </footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+reveals.forEach(el => observer.observe(el));
+
+// Waitlist form
+function handleWaitlist(e) {
+  e.preventDefault();
+  const form = document.getElementById('waitlistForm');
+  const success = document.getElementById('waitlistSuccess');
+  // TODO: Replace with actual endpoint (Mailchimp, Google Form, etc.)
+  form.style.display = 'none';
+  success.style.display = 'block';
+  document.querySelector('.waitlist-privacy').style.display = 'none';
+}
+</script>
 
 </body>
 </html>
