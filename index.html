@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Klaxon — Aprueba el práctico a la primera</title>
+<title>Klaxon Drive — Aprueba el práctico a la primera</title>
 <meta name="description" content="La app con IA que te ayuda a aprobar el examen práctico de conducir. Registra tus clases, analiza tus errores y recibe consejos personalizados.">
-<meta property="og:title" content="Klaxon — Aprueba el práctico a la primera">
+<meta property="og:title" content="Klaxon Drive — Aprueba el práctico a la primera">
 <meta property="og:description" content="La app con IA que te ayuda a aprobar el examen práctico de conducir.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -174,7 +174,7 @@
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
   .btn-primary svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-  .btn-ios {
+  .btn-secondary-store {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -192,9 +192,9 @@
     letter-spacing: -0.2px;
   }
 
-  .btn-ios svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-secondary-store svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-  .ios-note {
+  .store-note {
     font-size: 12px;
     color: #aaa;
     display: flex;
@@ -202,7 +202,7 @@
     gap: 5px;
   }
 
-  .ios-note::before {
+  .store-note::before {
     content: '';
     width: 6px; height: 6px;
     background: #EAB308;
@@ -433,97 +433,6 @@
     font-weight: 600;
   }
 
-  /* ─── iOS WAITLIST ─── */
-  .waitlist {
-    padding: 80px 24px;
-    text-align: center;
-    max-width: 520px;
-    margin: 0 auto;
-  }
-
-  .waitlist-icon {
-    font-size: 40px;
-    margin-bottom: 16px;
-  }
-
-  .waitlist-title {
-    font-size: 24px;
-    font-weight: 700;
-    letter-spacing: -0.8px;
-    margin-bottom: 10px;
-  }
-
-  .waitlist-desc {
-    font-size: 15px;
-    color: var(--muted);
-    margin-bottom: 24px;
-  }
-
-  .waitlist-form {
-    display: flex;
-    gap: 8px;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  .waitlist-form input {
-    flex: 1;
-    padding: 13px 18px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    font-size: 14px;
-    font-family: inherit;
-    background: var(--card-bg);
-    color: var(--ink);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .waitlist-form input:focus {
-    border-color: var(--purple);
-  }
-
-  .waitlist-form input::placeholder {
-    color: #bbb;
-  }
-
-  .waitlist-form button {
-    padding: 13px 22px;
-    background: var(--purple);
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-
-  .waitlist-form button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(61,47,204,0.3);
-  }
-
-  .waitlist-privacy {
-    font-size: 12px;
-    color: #bbb;
-    margin-top: 12px;
-  }
-
-  .waitlist-success {
-    display: none;
-    padding: 14px 20px;
-    background: rgba(34,197,94,0.08);
-    color: #16a34a;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
   /* ─── CTA FINAL ─── */
   .cta-final {
     padding: 100px 24px;
@@ -656,8 +565,6 @@
 
     .proof-stats { gap: 32px; }
 
-    .waitlist-form { flex-direction: column; }
-
     footer { flex-direction: column; text-align: center; padding: 20px; }
   }
 
@@ -672,9 +579,9 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <img src="Klaxon%20Logo%20NoBackground.png" alt="Klaxon">
+    <img src="Klaxon%20Logo%20NoBackground.png" alt="Klaxon Drive">
   </a>
-  <a href="https://play.google.com/store/apps/details?id=com.tuusuario.klaxon" class="nav-cta">Descargar gratis</a>
+  <a href="https://apps.apple.com/es/app/klaxon-drive/id6762221916" class="nav-cta">Descargar gratis</a>
 </nav>
 
 <!-- HERO -->
@@ -684,23 +591,25 @@
   <p class="hero-sub">Registra cada clase, descubre en qué fallas y recibe consejos de IA personalizados para tu examen.</p>
 
   <div class="hero-buttons">
-    <a href="https://play.google.com/store/apps/details?id=com.tuusuario.klaxon" class="btn-primary">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.35.2.74.24 1.11.12L15.94 12 4.29.12C3.92 0 3.53.04 3.18.24 2.48.64 2 1.42 2 2.29v19.42c0 .87.48 1.65 1.18 2.05z"/><path d="M19.5 10.27l-2.96-1.7L13.41 12l3.13 3.43 2.96-1.7c.85-.49.85-1.97 0-2.46z"/><path d="M4.29.12l10.71 6.15L12 9.41 4.29.12z"/><path d="M12 14.59l3 3.29-10.71 6.15L12 14.59z"/></svg>
-      Disponible en Google Play
-    </a>
-    <div class="btn-ios">
+    <!-- iOS: Primary -->
+    <a href="https://apps.apple.com/es/app/klaxon-drive/id6762221916" class="btn-primary">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-      Próximamente en iOS
+      Descargar en App Store
+    </a>
+    <!-- Android: Coming soon -->
+    <div class="btn-secondary-store">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.35.2.74.24 1.11.12L15.94 12 4.29.12C3.92 0 3.53.04 3.18.24 2.48.64 2 1.42 2 2.29v19.42c0 .87.48 1.65 1.18 2.05z"/><path d="M19.5 10.27l-2.96-1.7L13.41 12l3.13 3.43 2.96-1.7c.85-.49.85-1.97 0-2.46z"/><path d="M4.29.12l10.71 6.15L12 9.41 4.29.12z"/><path d="M12 14.59l3 3.29-10.71 6.15L12 14.59z"/></svg>
+      Próximamente en Google Play
     </div>
-    <span class="ios-note">En revisión en la App Store</span>
+    <span class="store-note">Disponible pronto en Android</span>
   </div>
 
   <!-- HERO SCREENSHOTS -->
   <div class="hero-mockup">
     <div class="hero-mockup-row">
-      <img src="Frame%202.jpg" alt="Diario de clases de conducir en Klaxon" loading="eager">
-      <img src="Frame%204.jpg" alt="Estadísticas y progreso en Klaxon" loading="eager">
-      <img src="Group%201.jpg" alt="Asistente IA de conducción en Klaxon" loading="eager">
+      <img src="Frame%202.jpg" alt="Diario de clases de conducir en Klaxon Drive" loading="eager">
+      <img src="Frame%204.jpg" alt="Estadísticas y progreso en Klaxon Drive" loading="eager">
+      <img src="Group%201.jpg" alt="Asistente IA de conducción en Klaxon Drive" loading="eager">
     </div>
   </div>
 </section>
@@ -775,7 +684,7 @@
       </div>
     </div>
     <div class="feature-visual">
-      <img src="Group%201.jpg" alt="Chat con el asistente IA de Klaxon" loading="lazy">
+      <img src="Group%201.jpg" alt="Chat con el asistente IA de Klaxon Drive" loading="lazy">
     </div>
   </div>
 
@@ -809,29 +718,14 @@
   </div>
 </section>
 
-<!-- iOS WAITLIST -->
-<section class="waitlist reveal" id="waitlist">
-  <div class="waitlist-icon">🍎</div>
-  <h2 class="waitlist-title">¿Usas iPhone?</h2>
-  <p class="waitlist-desc">La versión para iOS está en revisión en la App Store. Déjanos tu email y te avisamos en cuanto esté disponible.</p>
-  <form class="waitlist-form" id="waitlistForm" onsubmit="handleWaitlist(event)">
-    <input type="email" placeholder="tu@email.com" required autocomplete="email">
-    <button type="submit">Avisarme</button>
-  </form>
-  <p class="waitlist-privacy">Solo para avisarte. Sin spam, lo prometemos.</p>
-  <div class="waitlist-success" id="waitlistSuccess">
-    ✓ ¡Apuntado! Te escribimos cuando esté lista.
-  </div>
-</section>
-
 <!-- CTA FINAL -->
 <section class="cta-final">
   <div class="cta-inner">
     <div class="hero-eyebrow" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:none;opacity:1;animation:none;">¿Cuántos días te quedan para el examen?</div>
     <h2 class="hero-title" style="font-size:clamp(36px,6vw,56px);">Empieza <em>hoy</em></h2>
-    <p class="hero-sub" style="margin-bottom:32px;">Descarga Klaxon gratis y llega al examen sabiendo exactamente en qué fallas.</p>
-    <a href="https://play.google.com/store/apps/details?id=com.tuusuario.klaxon" class="btn-white">
-      Descargar gratis en Android
+    <p class="hero-sub" style="margin-bottom:32px;">Descarga Klaxon Drive gratis y llega al examen sabiendo exactamente en qué fallas.</p>
+    <a href="https://apps.apple.com/es/app/klaxon-drive/id6762221916" class="btn-white">
+      Descargar gratis en App Store
     </a>
   </div>
 </section>
@@ -839,7 +733,7 @@
 <!-- FOOTER -->
 <footer>
   <a href="#" class="footer-logo">
-    <img src="Klaxon%20Logo%20NoBackground%20for%20DarkMode.png" alt="Klaxon">
+    <img src="Klaxon%20Logo%20NoBackground%20for%20DarkMode.png" alt="Klaxon Drive">
   </a>
   <div style="display:flex;gap:24px;align-items:center;">
     <a href="https://tuusuario.github.io/klaxon-privacy">Privacidad</a>
@@ -861,17 +755,6 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 
 reveals.forEach(el => observer.observe(el));
-
-// Waitlist form
-function handleWaitlist(e) {
-  e.preventDefault();
-  const form = document.getElementById('waitlistForm');
-  const success = document.getElementById('waitlistSuccess');
-  // TODO: Replace with actual endpoint (Mailchimp, Google Form, etc.)
-  form.style.display = 'none';
-  success.style.display = 'block';
-  document.querySelector('.waitlist-privacy').style.display = 'none';
-}
 </script>
 
 </body>
