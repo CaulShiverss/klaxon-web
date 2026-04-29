@@ -182,7 +182,7 @@
     align-items: center;
     gap: 10px;
     background: transparent;
-    color: var(--muted);
+    color: var(--ink);
     text-decoration: none;
     padding: 14px 24px;
     border-radius: 14px;
@@ -191,26 +191,12 @@
     width: 100%;
     justify-content: center;
     border: 1px solid var(--border);
-    cursor: default;
     letter-spacing: -0.2px;
+    transition: all 0.2s;
   }
 
+  .btn-secondary-store:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); background: rgba(0,0,0,0.02); }
   .btn-secondary-store svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-  .store-note {
-    font-size: 12px;
-    color: #aaa;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .store-note::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: #EAB308;
-    border-radius: 50%;
-  }
 
   /* ─── HERO MOCKUP ─── */
   .hero-mockup {
@@ -480,6 +466,15 @@
     animation: none;
   }
 
+  .cta-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    max-width: 480px;
+  }
+
   .btn-white {
     display: flex;
     align-items: center;
@@ -487,15 +482,41 @@
     background: #fff;
     color: var(--ink);
     text-decoration: none;
-    padding: 14px 28px;
+    padding: 14px 24px;
     border-radius: 14px;
     font-size: 15px;
     font-weight: 600;
     transition: all 0.2s;
     letter-spacing: -0.2px;
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
   }
 
   .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+  .btn-white svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  .btn-outline-white {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s;
+    letter-spacing: -0.2px;
+    border: 1px solid rgba(255,255,255,0.2);
+    flex: 1;
+    min-width: 200px;
+    justify-content: center;
+  }
+
+  .btn-outline-white:hover { transform: translateY(-2px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.3); }
+  .btn-outline-white svg { width: 18px; height: 18px; flex-shrink: 0; }
 
   /* ─── FOOTER ─── */
   footer {
@@ -568,6 +589,8 @@
 
     .proof-stats { gap: 32px; }
 
+    .cta-buttons { flex-direction: column; align-items: center; max-width: 280px; }
+
     footer { flex-direction: column; text-align: center; padding: 20px; }
   }
 
@@ -594,17 +617,16 @@
   <p class="hero-sub">Registra cada clase, descubre en qué fallas y recibe consejos de IA personalizados para tu examen.</p>
 
   <div class="hero-buttons">
-    <!-- iOS: Primary -->
+    <!-- iOS -->
     <a href="https://apps.apple.com/es/app/klaxon-drive/id6762221916" class="btn-primary">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
       Descargar en App Store
     </a>
-    <!-- Android: Coming soon -->
-    <div class="btn-secondary-store">
+    <!-- Android -->
+    <a href="https://play.google.com/store/apps/details?id=com.klaxon.drive" class="btn-secondary-store">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.35.2.74.24 1.11.12L15.94 12 4.29.12C3.92 0 3.53.04 3.18.24 2.48.64 2 1.42 2 2.29v19.42c0 .87.48 1.65 1.18 2.05z"/><path d="M19.5 10.27l-2.96-1.7L13.41 12l3.13 3.43 2.96-1.7c.85-.49.85-1.97 0-2.46z"/><path d="M4.29.12l10.71 6.15L12 9.41 4.29.12z"/><path d="M12 14.59l3 3.29-10.71 6.15L12 14.59z"/></svg>
-      Próximamente en Google Play
-    </div>
-    <span class="store-note">Disponible pronto en Android</span>
+      Descargar en Google Play
+    </a>
   </div>
 
   <!-- HERO SCREENSHOTS -->
@@ -727,9 +749,16 @@
     <div class="hero-eyebrow" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.5);border:none;opacity:1;animation:none;">¿Cuántos días te quedan para el examen?</div>
     <h2 class="hero-title" style="font-size:clamp(36px,6vw,56px);">Empieza <em>hoy</em></h2>
     <p class="hero-sub" style="margin-bottom:32px;">Descarga Klaxon Drive gratis y llega al examen sabiendo exactamente en qué fallas.</p>
-    <a href="https://apps.apple.com/es/app/klaxon-drive/id6762221916" class="btn-white">
-      Descargar gratis en App Store
-    </a>
+    <div class="cta-buttons">
+      <a href="https://apps.apple.com/es/app/klaxon-drive/id6762221916" class="btn-white">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        App Store
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=com.klaxon.drive" class="btn-outline-white">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.35.2.74.24 1.11.12L15.94 12 4.29.12C3.92 0 3.53.04 3.18.24 2.48.64 2 1.42 2 2.29v19.42c0 .87.48 1.65 1.18 2.05z"/><path d="M19.5 10.27l-2.96-1.7L13.41 12l3.13 3.43 2.96-1.7c.85-.49.85-1.97 0-2.46z"/><path d="M4.29.12l10.71 6.15L12 9.41 4.29.12z"/><path d="M12 14.59l3 3.29-10.71 6.15L12 14.59z"/></svg>
+        Google Play
+      </a>
+    </div>
   </div>
 </section>
 
